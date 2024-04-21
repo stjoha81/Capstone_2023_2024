@@ -4,7 +4,7 @@ Original implementation was via a Colab Notebook uploaded to GitHub.
 
 Newest implementation is as follows:
 
-1. Created a notebook file () running on local jupyter server to verify code is working locally. This included creating the static and tempales folders with the style sheet and index.html files.
+1. Created a notebook file running on local jupyter server to verify code is working locally. This included creating the static and tempales folders with the style sheet and index.html files. Uploaded to GitHub at https://github.com/stjoha81/Capstone_2023_2024/blob/main/Flask.ipynb 
 
 2. Created an app.py file that starts up ngrok and prompts for authtoken, then runs the index.html file on the local URL and renders a matplotlib graph based on inputs provided to the index.html page. Added my_flask_app_path to allow for adjusting path for different computers this code may run on.
 
