@@ -1,7 +1,7 @@
 33.4.4: Capstone Step 11: Deployment Implementation
 
 
-This capstone flask app was created based on previous iterations of the capstone project done in Jupyter notebook. For production deployment, the flask app is packaged into a Docker image. The image can be run locally for test purposes, then uploaded to Docker Hub in preparation for production deployment. The production deployment uses the AWS Elastic Beanstalk service and leverages its associated monitoring and logging capabilities to keep track of the capstone application's health.
+This capstone flask app was created based on previous iterations of the capstone project done in Jupyter notebook. The flask app provides a web UI for interacting wiht the capstoen machine learning model via APIs. The purpose of the app is for the user to upload an image of a MRI brain scan and for the model to predict whether the image contains one of 3 kinds of tumors, or no tumor at all. For production deployment, the flask app is packaged into a Docker image. The image can be run locally for test purposes, then uploaded to Docker Hub in preparation for production deployment. The production deployment uses the AWS Elastic Beanstalk service and leverages its associated monitoring and logging capabilities to keep track of the capstone application's health.
 
 1. Build Docker image locally for test purposes: 
 docker build -t capstone-flask-16 . 
@@ -19,7 +19,8 @@ There are a couple of important changes to this build command compared to the co
 
 5. In AWS Elastic Beanstalk follow their step by step process for setting up a new environment, choosing Docker as the platform and then choose to upload a local file for the application. When you choose this, select the Dockerrun.aws.json referred to in step #4 above.
 
-6. The time it takes to deploy the app in Elastic Beanstalk can vary. Around 20 minutes was typical. Once deployed, Elastic Beanstalk provides a robust set of metrics and ways of monitoring the application's health, including requests per second, number of responses, latency, and memory usage.
+6. The time it takes to deploy the app in Elastic Beanstalk can vary. Around 20 minutes was typical. Once deployed, Elastic Beanstalk provides both a URL for calling the app and a robust set of metrics and ways of monitoring the application's health, including requests per second, number of responses, latency, and memory usage. The user can call the app and upload the JPEG formatted image of their choice. The app will then return the model's prediction of wther the image contains a meningiona, glioma, or pituitary tumor, or no tumor at all. 
+
 
 
 
