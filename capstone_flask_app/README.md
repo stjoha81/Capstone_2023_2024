@@ -10,7 +10,7 @@ docker container run -d -p 5000:5000 capstone-flask-16
 
 2. Build Docker image in preparation for production deployment: 
 docker build --platform linux/amd64 -t stjoha8/capstonerep:latest3 .
-There are a couple of important changes to this build command compared to the command in #1 anobe. First, it specifies the Docker Hub repository name. Second, since I was developing on a M3 Mac, the --platform option is needed to avoid warnings when deploying to a standard AWS Elastic Beanstalk managed service for running a docker container.
+There are a couple of important changes to this build command compared to the command in #1 above. First, it specifies the Docker Hub repository name. Second, since I was developing on a M3 Mac, the --platform option is needed to avoid warnings when deploying to a standard AWS Elastic Beanstalk managed service for running a docker container.
 
 3. The command to push the image built in #2 to the Docker Hub is:
  docker push stjoha8/capstonerep:latest3 where stjoha8/capstonerep points to your Docker Hub repository.
@@ -19,7 +19,12 @@ There are a couple of important changes to this build command compared to the co
 
 5. In AWS Elastic Beanstalk follow their step by step process for setting up a new environment, choosing Docker as the platform and then choose to upload a local file for the application. When you choose this, select the Dockerrun.aws.json referred to in step #4 above.
 
-6. The time it takes to deploy the app in Elastic Beanstalk can vary. Around 20 minutes was typical. Once deployed, Elastic Beanstalk provides both a URL for calling the app and a robust set of metrics and ways of monitoring the application's health, including requests per second, number of responses, latency, and memory usage. The user can call the app and upload the JPEG formatted image of their choice. The app will then return the model's prediction of wther the image contains a meningiona, glioma, or pituitary tumor, or no tumor at all. 
+6. The time it takes to deploy the app in Elastic Beanstalk can vary. Around 20 minutes was typical. Once deployed, Elastic Beanstalk provides both a URL for calling the app (ex. http://capstoneapp8-env.eba-pv9rffx2.us-east-2.elasticbeanstalk.com/) and a robust set of metrics and ways of monitoring the application's health, including requests per second, number of responses, latency, and memory usage. The user can call the app and upload the JPEG formatted image of their choice. The app will then return the model's prediction of wther the image contains a meningiona, glioma, or pituitary tumor, or no tumor at all. 
+
+7. Logging information can be downloaded from within the AWS console for Elastci Beanstalk. Navigate to the environment the app is running in, and select "Logs" on the left hand side. You can then choose whether to dwnload all of the log files or to download just the tail (last 100 lines) for each file to review.
+
+8. Architecture diagram:
+![Alt text](../Capstone_architecture_08112024.jpg?raw=true "Final Capstone architecture")
 
 
 
