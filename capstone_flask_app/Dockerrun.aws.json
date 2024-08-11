@@ -1,7 +1,7 @@
 {
  "AWSEBDockerrunVersion":"1",
  "Image":{
-  "Name":"stjoha8/capstonerep:latest1",
+  "Name":"stjoha8/capstonerep:latest3",
   "Update":"true"
  },
  "Ports":[

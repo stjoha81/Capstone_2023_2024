@@ -11,3 +11,5 @@ RUN pip install -r requirements.txt
 EXPOSE 5000
 
 CMD python ./app.py
+#CMD ["./app.py", "start"]
+# CMD ["/path/to/my-cmd", "start"]  # Exec form with JSON array syntax

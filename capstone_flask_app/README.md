@@ -1,15 +1,29 @@
 33.4.4: Capstone Step 11: Deployment Implementation
 
-Need to update notes below from previous flask app:
 
-1. Created a notebook file running on local jupyter server to verify code is working locally. This included creating the static and tempales folders with the style sheet and index.html files. Uploaded to GitHub at https://github.com/stjoha81/Capstone_2023_2024/blob/main/Flask.ipynb 
+This capstone flask app was created based on previous iterations of the capstone project done in Jupyter notebook. For production deployment, the flask app is packaged into a Docker image. The image can be run locally for test purposes, then uploaded to Docker Hub in preparation for production deployment. The production deployment uses the AWS Elastic Beanstalk service and leverages its associated monitoring and logging capabilities to keep track of the capstone application's health.
 
-2. Created an app.py file that starts up ngrok and prompts for authtoken, then runs the index.html file on the local URL and renders a matplotlib graph based on inputs provided to the index.html page. Added my_flask_app_path to allow for adjusting path for different computers this code may run on.
+1. Build Docker image locally for test purposes: 
+docker build -t capstone-flask-16 . 
+The image can then be run locally with this command to test locally prior to cloud deployment: 
+docker container run -d -p 5000:5000 capstone-flask-16
 
-3. Ran app.py via command line. ngrok works appropriately, and the local URL displays the index.html page and accepts inputs. Rendring of the graph fails due to a warning about rendering outside main thread. Specific error message:
+2. Build Docker image in preparation for production deployment: 
+docker build --platform linux/amd64 -t stjoha8/capstonerep:latest3 .
+There are a couple of important changes to this build command compared to the command in #1 anobe. First, it specifies the Docker Hub repository name. Second, since I was developing on a M3 Mac, the --platform option is needed to avoid warnings when deploying to a standard AWS Elastic Beanstalk managed service for running a docker container.
 
-UserWarning: Starting a Matplotlib GUI outside of the main thread will likely fail.
-  fig, ax = plt.subplots(figsize=(12,8))
-*** Terminating app due to uncaught exception 'NSInternalInconsistencyException', reason: 'NSWindow should only be instantiated on the main thread!'
+3. The command to push the image built in #2 to the Docker Hub is:
+ docker push stjoha8/capstonerep:latest3 where stjoha8/capstonerep points to your Docker Hub repository.
+
+4. The GitHub repository includes a Dockerrun.aws.json file. This is needed to actually get Elastic Beanstalk to pull the Docker Hub image over and deploy it. The Name field should be updated with your Docker Hub repository information. The Ports fields and logging fields can be updated if other ports or logging locations are preferred.
+
+5. In AWS Elastic Beanstalk follow their step by step process for setting up a new environment, choosing Docker as the platform and then choose to upload a local file for the application. When you choose this, select the Dockerrun.aws.json referred to in step #4 above.
+
+6. The time it takes to deploy the app in Elastic Beanstalk can vary. Around 20 minutes was typical. Once deployed, Elastic Beanstalk provides a robust set of metrics and ways of monitoring the application's health, including requests per second, number of responses, latency, and memory usage.
+
+
+
+
+
 
 
